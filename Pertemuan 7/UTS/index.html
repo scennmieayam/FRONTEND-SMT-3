@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APLIKASI PENJUALAN COMPUTER</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="containerUtama">
+            <h1 class="judul">APLIKASI PENJUALAN COMPUTER KENN</h1>
+            
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="judulDataBrg">DATA BARANG</div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Kategori</label>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control" id="kategori" readonly>
+                            <button class="btn tombolPilih" onclick="showKategori()"></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nama Barang</label>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control" id="namaBarang" readonly>
+                            <button class="btn tombolPilih" onclick="showItems()"></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Harga Satuan</label>
+                        <input type="text" class="form-control" id="hargaSatuan" value="Rp. 0" readonly>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Jumlah</label>
+                        <input type="number" class="form-control" id="jumlah" min="1" onchange="calculatePrice()">
+                    </div>
+
+                    <div class="section-title">JENIS PENJUALAN</div>
+                    
+                    <div class="mb-3">
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control" id="jenisPenjualan" readonly>
+                            <button class="btn tombolPilih" onclick="showJenisPenjualan()"></button>
+                        </div>
+                    </div>
+                    <div class="calc-row">
+                        <div class="mb-3">
+                            <label class="form-label text-black">Total Penjualan</label>
+                            <div class="calc-field" id="totalPenjualan">Rp. 0</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-black">Diskon</label>
+                            <div class="calc-field" id="diskon">Rp. 0</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label text-black">Pajak</label>
+                            <div class="calc-field" id="pajak">Rp. 0</div>
+                        </div>
+                        
+                        <div class="mb-0">
+                            <label class="form-label text-black">Harga Total</label>
+                            <div class="calc-field total-price" id="hargaTotal">Rp. 0</div>
+                        </div>
+                    </div>
+                    
+                    <!--ketentuan-->
+                    <div class="kondisi-box">
+                        <div class="kondisi-title">KETENTUAN</div>
+                        <ul style="margin: 0; padding-left: 20px;">
+                            <li><strong>Diskon:</strong> 10% dari total penjualan jika pembayaran Tunai</li>
+                            <li><strong>Pajak:</strong> 15% dari harga satuan untuk Barang Utama (PC/Laptop)</li>
+                            <li><strong>Pajak:</strong> 10% dari harga satuan untuk Barang Aksesoris</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!--bagian kanan - popups-->
+                <div class="col-md-5">
+                    <div class="popup-container" id="popupKategori">
+                        <div class="popup-header">KATEGORI</div>
+                        <table class="table table-category">
+                            <tbody>
+                                <tr onclick="selectKategori('PC / LAPTOP')">
+                                    <td>1. PC / LAPTOP</td>
+                                </tr>
+                                <tr onclick="selectKategori('AKSESORIS')">
+                                    <td>2. AKSESORIS</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="popup-footer">
+                            <button class="btn btn-danger" onclick="closePopup('popupKategori')">Tutup</button>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-container" id="popupPC" style="display: none;">
+                        <div class="popup-header">PC / LAPTOP</div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="radioPC" id="pc1" value="PC IBM Core i7">
+                            <label class="form-check-label" for="pc1">
+                                PC IBM Core i7 - Rp. 5.600.000
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="radioPC" id="pc2" value="Laptop Asus Core i5">
+                            <label class="form-check-label" for="pc2">
+                                Laptop Asus Core i5 - Rp. 4.500.000
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="radioPC" id="pc3" value="Laptop Lenovo AMD Ryzen 5">
+                            <label class="form-check-label" for="pc3">
+                                Laptop Lenovo AMD Ryzen 5 - Rp. 9.500.000
+                            </label>
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-success" onclick="saveItem('pc')">Simpan</button>
+                            <button class="btn btn-danger" onclick="closePopup('popupPC')">Batal</button>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-container" id="popupAksesoris" style="display: none;">
+                        <div class="popup-header">AKSESORIS</div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="checkboxAks" id="aks1" value="Flasdisk 32gb">
+                            <label class="form-check-label" for="aks1">
+                                Flasdisk 32gb - Rp. 50.000
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="checkboxAks" id="aks2" value="Hardisk 256 gb">
+                            <label class="form-check-label" for="aks2">
+                                Hardisk 256 gb - Rp. 1.250.000
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="checkboxAks" id="aks3" value="Speaker Aktif">
+                            <label class="form-check-label" for="aks3">
+                                Speaker Aktif - Rp. 255.000
+                            </label>
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-success" onclick="saveItem('aksesoris')">Simpan</button>
+                            <button class="btn btn-danger" onclick="closePopup('popupAksesoris')">Batal</button>
+                        </div>
+                    </div>
+                    
+                    <div class="popup-container" id="popupJenis" style="display: none;">
+                        <div class="popup-header green">JENIS PENJUALAN</div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="radioJenis" id="jenis1" value="Tunai">
+                            <label class="form-check-label" for="jenis1">
+                                Tunai
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="radioJenis" id="jenis2" value="Kredit">
+                            <label class="form-check-label" for="jenis2">
+                                Kredit
+                            </label>
+                        </div>
+                        <div class="popup-footer">
+                            <button class="btn btn-success" onclick="saveJenis()">Simpan</button>
+                            <button class="btn btn-danger" onclick="closePopup('popupJenis')">Batal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--bootstrap js-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!--custom js-->
+    <script src="script.js"></script>
+</body>
+</html>
+
