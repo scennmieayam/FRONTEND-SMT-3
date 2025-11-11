@@ -9,6 +9,11 @@ const hargaBarang = {
         'Flasdisk 32gb': 50000,
         'Hardisk 256 gb': 1250000,
         'Speaker Aktif': 255000
+    },
+    'PRINTER' : {
+        'SONY' : 1500000,
+        'EPSON' : 1200000,
+        'HP' : 1000000
     }
 };
 
@@ -26,7 +31,7 @@ function selectKategori(kategori) {
     document.getElementById('popupKategori').style.display = 'none';
 }
 
-//popup items
+//popup barang
 function showItems() {
     const kategori = document.getElementById('kategori').value;
     
@@ -36,6 +41,9 @@ function showItems() {
     } else if (kategori === 'AKSESORIS') {
         document.getElementById('popupAksesoris').style.display = 'block';
         closeOtherPopups('popupAksesoris');
+    } else if (kategori === 'PRINTER') {
+        document.getElementById('popupPrinter').style.display = 'block';
+        closeOtherPopups('popupPrinter');
     } else {
         alert('Pilih kategori terlebih dahulu!');
     }
@@ -54,7 +62,7 @@ function closePopup(popupId) {
 
 //close popup lainnya
 function closeOtherPopups(currentPopup) {
-    const popups = ['popupPC', 'popupAksesoris', 'popupJenis'];
+    const popups = ['popupKategori', 'popupPC', 'popupAksesoris', 'popupJenis', 'popupPrinter'];
     popups.forEach(popup => {
         if (popup !== currentPopup) {
             document.getElementById(popup).style.display = 'none';
@@ -62,7 +70,7 @@ function closeOtherPopups(currentPopup) {
     });
 }
 
-//save item (PC/Laptop atau Aksesoris)
+//save barang pc/aksesoriss
 function saveItem(type) {
     selectedItems = [];
     let namaBarang = '';
@@ -97,19 +105,35 @@ function saveItem(type) {
         });
         namaBarang = selectedItems.map(item => item.nama).join(', ');
         closePopup('popupAksesoris');
+    } else if (type === 'printer') {
+        const checkboxes = document.querySelectorAll('input[name="checkboxPrinter"]:checked');
+        if (checkboxes.length === 0) {
+            alert('Pilih minimal satu item!');
+            return;
+        }
+        checkboxes.forEach(cb => {
+            const namaPrinter = cb.value;
+            selectedItems.push({
+                nama: namaPrinter,
+                harga: hargaBarang['PRINTER'][namaPrinter],
+                type: 'PRINTER'
+            });
+        });
+        namaBarang = selectedItems.map(item => item.nama).join(', ');
+        closePopup('popupPrinter');
     }
     
-    // Update nama barang
+    //update nama barang
     document.getElementById('namaBarang').value = namaBarang;
     
-    // Update harga satuan (total harga semua item)
+    //update harga satuan (total harga semua item)
     let totalHargaSatuan = 0;
     selectedItems.forEach(item => {
         totalHargaSatuan += item.harga;
     });
     document.getElementById('hargaSatuan').value = 'Rp. ' + formatRupiah(totalHargaSatuan);
     
-    // Reset jumlah dan recalculate
+    //reset jumlah dan hitung ulang
     document.getElementById('jumlah').value = 1;
     calculatePrice();
 }
@@ -141,18 +165,27 @@ function calculatePrice() {
     //hitung total penjualan
     let totalPenjualan = totalHargaSatuan * jumlah;
     
-    //hitung diskon (10% jika tunai)
+    //hitung diskon 10% jika tunai
     let jenisPenjualan = document.getElementById('jenisPenjualan').value;
     let diskon = 0;
     if (jenisPenjualan.includes('Tunai')) {
         diskon = totalPenjualan * 0.1;
     }
     
-    //hitung pajak
+    //hitung pajak untuk barang utama 15% dan barang aksesoris 10% tambah printer 12%
     let pajak = 0;
     selectedItems.forEach(item => {
-        let persenPajak = item.type === 'PC' ? 0.15 : 0.10;
-        pajak += item.harga * persenPajak * jumlah;
+        let persenPajak;
+        if (item.type === 'PC') {
+            persenPajak = 15;
+        } else if (item.type === 'AKSESORIS') {
+            persenPajak = 10;
+        } else if (item.type === 'PRINTER') {
+            persenPajak = 12;
+        } else {
+            persenPajak = 10; // default untuk kategori lain
+        }
+        pajak += item.harga * persenPajak / 100 * jumlah;
     });
     
     //hitung harga total
@@ -167,6 +200,6 @@ function calculatePrice() {
 
 //format duit
 function formatRupiah(angka) {
-    return angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return angka.toLocaleString('id-ID');
 }
 
