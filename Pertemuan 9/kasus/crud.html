@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD Tabel jQuery + LocalStorage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>CRUD Tabel dengan jQuery + LocalStorage </h2>
+        <div class="form-area">
+            <input type="text" id="nama" placeholder="Nama">
+            <input type="text" id="alamat" placeholder="Alamat">
+            <button id="addBtn">Tambah</button>
+            <button id="updateBtn" style="display:none;">Update</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tableData">
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
