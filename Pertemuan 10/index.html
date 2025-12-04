@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko ROBLOX Kennn</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">Kennn<span>Store</span></div>
+
+        <div class="search-box">
+            <input type="text" placeholder="Cari item ROBLOX...">
+            <button>🔍</button>
+        </div>
+
+        <div class="header-icons">
+            <div id="openCart" class="icon-btn">🛒</div>
+            <div class="icon-btn">❤️</div>
+        </div>
+    </header>
+    <nav class="category-bar">
+        <div>Fish It</div>
+        <div>Pet Simulator</div>
+        <div>Adopt Me</div>
+        <div>Blox Fruits</div>
+        <div>Item Lainnya</div>
+    </nav>
+    <section class="filter-box">
+        <h3>Filter Harga</h3>
+
+        <div id="priceSlider"></div>
+
+        <p>Harga: <span id="priceLabel"></span></p>
+    </section>
+    <section class="product-grid">
+
+        <div class="product-card" data-price="50000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Fish It - Golden Rod</h4>
+            <p class="price">Rp 50.000</p>
+            <p class="sold">1.2RB Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card" data-price="75000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Pet Simulator - Mythical Pet</h4>
+            <p class="price">Rp 75.000</p>
+            <p class="sold">3.4RB Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+        <div class="product-card" data-price="100000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Adopt Me - Legendary Pet</h4>
+            <p class="price">Rp 100.000</p>
+            <p class="sold">8.1RB Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card" data-price="150000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Blox Fruits - Dark Blade</h4>
+            <p class="price">Rp 150.000</p>
+            <p class="sold">952 Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card" data-price="200000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Fish It - Epic Bait Pack</h4>
+            <p class="price">Rp 200.000</p>
+            <p class="sold">8.1RB Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card" data-price="125000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Pet Simulator - Huge Pet</h4>
+            <p class="price">Rp 125.000</p>
+            <p class="sold">952 Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+
+        <div class="product-card" data-price="80000">
+            <img src="https://via.placeholder.com/200" alt="">
+            <h4>Adopt Me - Neon Pet</h4>
+            <p class="price">Rp 80.000</p>
+            <p class="sold">952 Terjual</p>
+            <button class="addToCart">Tambah ke Keranjang</button>
+        </div>
+
+    </section>
+    <div id="cartDialog" title="Keranjang Belanja">
+        <ul id="cartItems"></ul>
+        <hr>
+        <p>Total: Rp <span id="cartTotal">0</span></p>
+    </div>
+
+    <script src="script.js"></script>
+
+</html>
