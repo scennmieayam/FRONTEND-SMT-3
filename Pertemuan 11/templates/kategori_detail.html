@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>{{ info.title }} - HOTEL CITYKOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    background-color: #00bf7d !important;
+}
+
+.room-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.info-section {
+    padding: 0;
+    position: sticky;
+    top: 70px;
+    align-self: flex-start;
+    z-index: 100;
+}
+
+.info-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.info-description {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.btn-booking {
+    background-color: #ff6b35;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.btn-booking:hover {
+    background-color: #e55a2b;
+    color: white;
+}
+
+.category-link {
+    color: #00bf7d;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.category-link:hover {
+    text-decoration: underline;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #00bf7d;
+    color: white;
+}
+
+.description-section {
+    margin-top: 30px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.sub-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.fasilitas-list {
+    list-style: none;
+    padding: 0;
+}
+
+.fasilitas-list li {
+    padding: 8px 0;
+    color: #666;
+    border-bottom: 1px solid #f0f0f0;
+    padding-left: 25px;
+    position: relative;
+}
+
+.fasilitas-list li:last-child {
+    border-bottom: none;
+}
+
+.fasilitas-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #00bf7d;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+body.dark-mode .navbar {
+    background-color: #00bf7d !important;
+}
+
+body.dark-mode .info-title,
+body.dark-mode .section-title,
+body.dark-mode .sub-section-title {
+    color: #fff;
+}
+
+body.dark-mode .info-description,
+body.dark-mode .fasilitas-list li {
+    color: #ccc;
+}
+
+body.dark-mode .fasilitas-list li {
+    border-bottom-color: #444;
+}
+
+.app-footer {
+    margin-top: 40px;
+    padding: 16px 0;
+    background: #f8f9fa;
+    color: #555;
+    text-align: center;
+    font-size: 14px;
+}
+
+body.dark-mode .app-footer {
+    background: #1e1e1e;
+    color: #ccc;
+}
+
+body {
+    padding-top: 72px;
+}
+
+.dark-toggle {
+    width: 40px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 13px;
+    z-index: 999;
+}
+
+.bottom-nav a {
+    color: #777;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.bottom-nav a span {
+    margin-top: -2px;
+    line-height: 1.1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bottom-nav a.active {
+    color: #0073e6;
+}
+
+.bottom-nav a div {
+    font-size: 20px;
+}
+
+.bottom-nav a div i {
+    font-size: 18px;
+}
+
+body.dark-mode .bottom-nav {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar p-2" style="position: fixed; top: 0; left: 0; right: 0; z-index: 1200; background: rgba(255, 255, 255, 0.95) !important; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1); border-bottom: 2px solid #cccccc;">
+    <div class="container d-flex align-items-center justify-content-between gap-2">
+        <a href="/" class="navbar-brand fw-bold fs-5 mb-0 text-decoration-none" style="color: #0073e6 !important; font-weight: 700;">HOTEL CITYKOM</a>
+
+        <div class="navbar-links d-none d-md-flex align-items-center gap-3">
+            <a href="/" style="color: #333 !important; text-decoration: none; font-weight: 600; font-size: 13px;">Home</a>
+            <a href="/cart" style="color: #333 !important; text-decoration: none; font-weight: 600; font-size: 13px;">Booking</a>
+            <a href="/profile" style="color: #333 !important; text-decoration: none; font-weight: 600; font-size: 13px;">Profile</a>
+        </div>
+
+        <div class="d-none d-md-flex align-items-center gap-2">
+            <button class="btn btn-outline-dark btn-sm dark-toggle" style="width: 40px; height: 36px; padding: 0;"><i class="fa-solid fa-sun"></i></button>
+        </div>
+
+        <button class="btn btn-outline-dark btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+            <i class="fa-solid fa-burger"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <a href="/cart" class="text-white text-decoration-none">Booking</a>
+        <a href="/profile" class="text-white text-decoration-none">Profile</a>
+        <button class="btn btn-outline-light w-100 dark-toggle"><i class="fa-solid fa-sun"></i></button>
+    </div>
+</div>
+
+<div class="container mt-4 mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="/static/img/{{ info.foto }}" alt="{{ info.title }}" class="room-image shadow-sm">
+            
+            <div class="description-section">
+                <h5 class="section-title">DESCRIPTION</h5>
+                <p class="info-description">{{ info.description }}</p>
+                
+                <h6 class="sub-section-title">Nikmati waktu selama Anda tinggal dengan fasilitas kamar:</h6>
+                <ul class="fasilitas-list">
+                    {% for fasilitas in info.fasilitas %}
+                    <li>{{ fasilitas }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="info-section">
+                <h1 class="info-title">{{ info.title }}</h1>
+                <p class="info-description">{{ info.description }}</p>
+                
+                <div class="mb-3 p-3 bg-light rounded" style="border-left: 4px solid #00bf7d;">
+                    <div class="d-flex align-items-center gap-2">
+                        <i class="fas fa-bed text-success" style="font-size: 20px;"></i>
+                        <div>
+                            <strong style="color: #333; font-size: 16px;">Stok Tersedia</strong>
+                            <div style="color: #00bf7d; font-size: 24px; font-weight: 700;">{{ stok }} Kamar</div>
+                        </div>
+                    </div>
+                </div>
+                
+                {% if kamars %}
+                <a href="/cart/add/{{ kamars[0].id_kamar }}" class="btn btn-booking">PESAN SEKARANG</a>
+                {% else %}
+                <button class="btn btn-secondary" disabled>Kamar Tidak Tersedia</button>
+                {% endif %}
+                
+                <div>
+                    <small class="text-muted">Category: </small>
+                    <a href="/" class="category-link">Akomodasi</a>
+                </div>
+                
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                
+                {% if info.keuntungan %}
+                <div class="mt-4">
+                    <h6 class="sub-section-title">Tamu kamar ini mendapatkan keuntungan istimewa berupa akses khusus nan elegan yang memberikan:</h6>
+                    <ul class="fasilitas-list">
+                        {% for keuntungan in info.keuntungan %}
+                        <li>{{ keuntungan }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-nav d-md-none">
+    <a href="/">
+        <div><i class="fa-solid fa-house"></i></div>
+        <span>Home</span>
+    </a>
+    <a href="/cart">
+        <div><i class="fa-solid fa-cart-shopping"></i></div>
+        <span>Booking</span>
+    </a>
+    <a href="/profile">
+        <div><i class="fa-solid fa-user"></i></div>
+        <span>Profile</span>
+    </a>
+</div>
+
+<footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-12 col-md-4">
+        <h5 class="fw-bold text-primary mb-2">HOTEL CITYKOM</h5>
+        <p class="mb-0 text-muted">
+          Hotel modern dengan suasana nyaman dan pelayanan ramah, cocok untuk perjalanan bisnis maupun liburan keluarga.
+        </p>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Quick Links</h6>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1">
+            <a href="/" class="text-decoration-none text-muted">Home</a>
+          </li>
+          <li class="mb-1">
+            <a href="/rooms" class="text-decoration-none text-muted">Rooms</a>
+          </li>
+          <li class="mb-1">
+            <a href="/cart" class="text-decoration-none text-muted">Booking</a>
+          </li>
+          <li class="mb-1">
+            <a href="/contact" class="text-decoration-none text-muted">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Contact & Operational</h6>
+        <p class="mb-1 text-muted">
+          Email: <a href="mailto:reservasi@hotelcitykom.com" class="text-decoration-none text-muted">reservasi@hotelcitykom.com</a>
+        </p>
+        <p class="mb-1 text-muted">
+          WhatsApp: <a href="https://wa.me/6281234567890" class="text-decoration-none text-muted">+62 812 3456 7890</a>
+        </p>
+        <p class="mb-2 text-muted">
+          Operasional: 24 jam, setiap hari
+        </p>
+        <p class="small mb-0 text-muted">
+          Booking dilakukan tanpa akun, konfirmasi melalui kontak pemesan.
+        </p>
+      </div>
+    </div>
+
+    <hr class="my-3">
+
+    <div class="row">
+      <div class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <span class="small text-muted mb-1 mb-md-0">
+          © 2025 — Project UAS Frontend Backend
+        </span>
+        <span class="small text-muted">
+          Designed for simple guest booking experience
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const body = document.body;
+const toggles = document.querySelectorAll(".dark-toggle");
+
+if (localStorage.getItem("darkMode") === "enabled") enableDarkMode();
+
+toggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+        body.classList.contains("dark-mode") ? disableDarkMode() : enableDarkMode();
+    });
+});
+
+function updateToggleIcons(isDark) {
+    toggles.forEach(btn => {
+        btn.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    });
+}
+
+function enableDarkMode() {
+    body.classList.add("dark-mode");
+    localStorage.setItem("darkMode", "enabled");
+    updateToggleIcons(true);
+}
+
+function disableDarkMode() {
+    body.classList.remove("dark-mode");
+    localStorage.setItem("darkMode", "disabled");
+    updateToggleIcons(false);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

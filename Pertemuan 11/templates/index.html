@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>HOTEL CITYKOM - Mobile Modern</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* Search Bar Modern */
+.search-box {
+    background-color: #ffffff;
+    padding: 6px 10px 6px 36px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    outline: none;
+    width: 250px;
+    max-width: 60vw;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: #666;
+    font-size: 14px;
+}
+
+.dark-toggle {
+    width: 40px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.search-box::placeholder {
+    color: #999;
+    opacity: 0.8;
+}
+
+/* Navbar Fixed & Glass */
+body {
+    padding-top: 72px;
+    background-color: #fafafa;
+}
+
+body.dark-mode {
+    background-color: #121212;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #cccccc;
+}
+
+.navbar-brand {
+    color: #0073e6 !important;
+    font-weight: 700;
+}
+
+/* Kategori Icon Style Modern */
+.cat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 20px 10px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 2px solid #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.cat-item:hover {
+    transform: translateY(-5px);
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #0073e6 0%, #00bf7d 100%) 1;
+    border-image-slice: 1;
+    box-shadow: 0 8px 20px rgba(0, 115, 230, 0.15);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+    border-radius: 16px;
+}
+
+.cat-icon {
+    width: 70px;
+    height: 70px;
+    background: #0073e6;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    color: #ffffff;
+    margin: 0 auto;
+    transition: all 0.35s ease;
+    box-shadow: 0 4px 12px rgba(0, 115, 230, 0.2);
+    background-size: 200% 200%;
+    background-position: 100% 0%;
+}
+
+.cat-item:hover .cat-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(45deg, #0073e6 0%, #00bf7d 100%);
+    background-position: 0% 100%;
+    box-shadow: 0 6px 20px rgba(0, 115, 230, 0.25);
+}
+
+.cat-item small {
+    margin-top: 4px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-size: 13px;
+    color: #333;
+    transition: color 0.3s ease;
+}
+
+.cat-item:hover small {
+    color: #0073e6;
+}
+
+.navbar-links a {
+    color: #333 !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding-bottom: 4px;
+    opacity: 1;
+}
+
+.navbar-links a:hover {
+    color: #0073e6 !important;
+}
+
+.navbar-links a.active {
+    color: #0073e6 !important;
+    border-bottom: 2px solid #0073e6;
+}
+
+/* Product Card Modern */
+.product-card {
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: filter 0.2s ease;
+}
+
+.product-card-content {
+    padding: 15px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #333;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.product-card-title:hover {
+    color: #0073e6;
+}
+
+.product-card-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0073e6;
+    margin-bottom: 12px;
+}
+
+.product-card-btn {
+    margin-top: auto;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.app-footer {
+    margin-top: 60px;
+    padding: 24px 0;
+    background: #ffffff;
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #e0e0e0;
+    font-weight: 500;
+}
+
+body.dark-mode .app-footer {
+    background: #1e1e1e;
+    color: #ccc;
+}
+
+.product-card:hover img {
+    filter: brightness(0.8);
+}
+
+/* Bottom Nav */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 13px;
+    z-index: 999;
+}
+
+.bottom-nav a {
+    color: #777;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.bottom-nav a span {
+    margin-top: -2px;
+    line-height: 1.1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bottom-nav a.active {
+    color: #0073e6;
+}
+
+.bottom-nav a div {
+    font-size: 20px;
+}
+
+.bottom-nav a div i {
+    font-size: 18px;
+}
+
+/* Dark Mode Fix */
+body.dark-mode .navbar {
+    background-color: rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+body.dark-mode .bottom-nav {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+
+body.dark-mode .cat-icon {
+    background: #0073e6;
+}
+
+body.dark-mode .cat-item {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+body.dark-mode .cat-item:hover {
+    background: linear-gradient(135deg, #2a2a2a 0%, #333 100%);
+    border: 2px solid transparent;
+    border-image: linear-gradient(45deg, #0073e6 0%, #00bf7d 100%) 1;
+    border-image-slice: 1;
+    border-radius: 16px;
+}
+
+body.dark-mode .cat-item small {
+    color: #fff;
+}
+
+body.dark-mode .product-card {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+body.dark-mode .product-card-title {
+    color: #fff;
+}
+
+/* Dark Mode Toggle Button */
+#darkModeToggle {
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+#darkModeToggle:hover {
+    border-color: rgba(255, 255, 255, 0.75) !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode #darkModeToggle {
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+body.dark-mode #darkModeToggle:hover {
+    border-color: rgba(255, 255, 255, 0.75) !important;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Banner Slider Modern */
+#banner {
+    margin-bottom: 40px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+#banner .carousel-inner {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+#banner .carousel-item {
+    position: relative;
+}
+
+#banner img {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+#banner .carousel-item:hover img {
+    transform: scale(1.05);
+}
+
+
+#banner .banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
+    text-align: center;
+    width: 90%;
+}
+
+#banner .banner-text h3 {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.5px;
+}
+
+#banner .banner-text p {
+    font-size: 20px;
+    margin: 0;
+    text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    #banner img {
+        height: 280px;
+    }
+    
+    #banner .banner-text h3 {
+        font-size: 24px;
+    }
+    
+    #banner .banner-text p {
+        font-size: 16px;
+    }
+    
+    .cat-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+    
+    .product-card img {
+        height: 180px;
+    }
+}
+
+@media (min-width: 992px) {
+    #banner img {
+        height: 450px;
+    }
+    
+    #banner .banner-text h3 {
+        font-size: 48px;
+    }
+    
+    #banner .banner-text p {
+        font-size: 22px;
+    }
+    
+    .product-card img {
+        height: 240px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- App Bar -->
+<nav class="navbar p-2">
+    <div class="container d-flex align-items-center justify-content-between gap-2">
+        <span class="navbar-brand fw-bold fs-5 mb-0">HOTEL CITYKOM</span>
+
+        <!-- Desktop Nav Links -->
+        <div class="navbar-links d-none d-md-flex align-items-center gap-3">
+            <a href="/" class="active">Home</a>
+            <a href="/cart">Booking</a>
+            <a href="/profile">Profile</a>
+        </div>
+
+        <!-- Desktop Toggle Only -->
+        <div class="d-none d-md-flex align-items-center gap-2">
+            <button class="btn btn-outline-dark btn-sm dark-toggle"><i class="fa-solid fa-sun"></i></button>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button class="btn btn-outline-dark btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+            <i class="fa-solid fa-burger"></i>
+        </button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <a href="/cart" class="text-white text-decoration-none">Booking</a>
+        <a href="/profile" class="text-white text-decoration-none">Profile</a>
+        <button class="btn btn-outline-light w-100 dark-toggle"><i class="fa-solid fa-sun"></i></button>
+    </div>
+</div>
+
+<!-- Slider Banner -->
+<div class="container mt-3">
+    <div id="banner" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/static/img/banner1.jpg" class="d-block w-100" alt="Banner 1">
+                <div class="banner-text">
+                    <h3>Welcome to HOTEL CITYKOM</h3>
+                    <p>Unforgettable Stays Await You</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="/static/img/banner2.jpg" class="d-block w-100" alt="Banner 2">
+                <div class="banner-text">
+                    <h3>Comfort & Luxury</h3>
+                    <p>Choose the Best Room for Your Trip</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Kategori -->
+<div class="container mt-5 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold mb-0" style="color: #1a1a1a;">Room Categories</h4>
+        <small class="text-muted d-none d-md-block">Choose your perfect stay</small>
+    </div>
+    <div class="row g-4">
+        <div class="col-6 col-md-3">
+            <a href="/kategori/Standard" class="cat-item text-decoration-none">
+                <div class="cat-icon"><i class="fa-solid fa-bed"></i></div>
+                <small>Standard</small>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a href="/kategori/Deluxe" class="cat-item text-decoration-none">
+                <div class="cat-icon"><i class="fa-solid fa-hotel"></i></div>
+                <small>Deluxe</small>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a href="/kategori/Suite" class="cat-item text-decoration-none">
+                <div class="cat-icon"><i class="fa-solid fa-crown"></i></div>
+                <small>Suite</small>
+            </a>
+        </div>
+        <div class="col-6 col-md-3">
+            <a href="/kategori/VIP" class="cat-item text-decoration-none">
+                <div class="cat-icon"><i class="fa-solid fa-star"></i></div>
+                <small>VIP</small>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Kamar -->
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold mb-1" style="color: #1a1a1a;">Featured Rooms</h4>
+            <small class="text-muted">Pilih kamar sesuai kebutuhan Anda</small>
+        </div>
+        <span class="badge bg-primary d-none d-md-block" style="font-size: 12px; padding: 8px 16px;">
+            <i class="fa-solid fa-star"></i> {{ kamars|length }} Tipe Kamar
+        </span>
+    </div>
+    <div class="row g-4">
+        {% for kamar in kamars %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <div class="product-card">
+                {% if kamar.filename %}
+                <img src="/static/img/{{ kamar.filename }}" alt="Kamar {{ kamar.tipe_kamar }}">
+                {% else %}
+                <img src="/static/img/default.jpg" alt="Kamar {{ kamar.tipe_kamar }}">
+                {% endif %}
+                <div class="product-card-content">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <a href="/kategori/{{ kamar.tipe_kamar }}" class="text-decoration-none flex-grow-1">
+                            <div class="product-card-title">{{ kamar.tipe_kamar }} Room</div>
+                        </a>
+                        <span class="badge bg-success" style="font-size: 10px; padding: 4px 8px;">Available</span>
+                    </div>
+                    <div class="product-card-price">{{ kamar.harga_per_malam|rupiah }} <small class="text-muted">/ night</small></div>
+                    <a href="/cart/add/{{ kamar.id_kamar }}" class="btn btn-primary w-100 product-card-btn">BOOK NOW</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav d-md-none">
+    <a href="/" class="active">
+        <div><i class="fa-solid fa-house"></i></div>
+        <span>Home</span>
+    </a>
+    <a href="/cart">
+        <div><i class="fa-solid fa-cart-shopping"></i></div>
+        <span>Booking</span>
+    </a>
+    <a href="/profile">
+        <div><i class="fa-solid fa-user"></i></div>
+        <span>Profile</span>
+    </a>
+</div>
+
+<footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-12 col-md-4">
+        <h5 class="fw-bold text-primary mb-2">HOTEL CITYKOM</h5>
+        <p class="mb-0 text-muted">
+          Hotel modern dengan suasana nyaman dan pelayanan ramah, cocok untuk perjalanan bisnis maupun liburan keluarga.
+        </p>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Quick Links</h6>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1">
+            <a href="/" class="text-decoration-none text-muted">Home</a>
+          </li>
+          <li class="mb-1">
+            <a href="/rooms" class="text-decoration-none text-muted">Rooms</a>
+          </li>
+          <li class="mb-1">
+            <a href="/cart" class="text-decoration-none text-muted">Booking</a>
+          </li>
+          <li class="mb-1">
+            <a href="/contact" class="text-decoration-none text-muted">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Contact & Operational</h6>
+        <p class="mb-1 text-muted">
+          Email: <a href="mailto:reservasi@hotelcitykom.com" class="text-decoration-none text-muted">reservasi@hotelcitykom.com</a>
+        </p>
+        <p class="mb-1 text-muted">
+          WhatsApp: <a href="https://wa.me/6281234567890" class="text-decoration-none text-muted">+62 812 3456 7890</a>
+        </p>
+        <p class="mb-2 text-muted">
+          Operasional: 24 jam, setiap hari
+        </p>
+        <p class="small mb-0 text-muted">
+          Booking dilakukan tanpa akun, konfirmasi melalui kontak pemesan.
+        </p>
+      </div>
+    </div>
+
+    <hr class="my-3">
+
+    <div class="row">
+      <div class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <span class="small text-muted mb-1 mb-md-0">
+          © 2025 — Project UAS Frontend Backend
+        </span>
+        <span class="small text-muted">
+          Designed for simple guest booking experience
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Dark Mode Script -->
+<script>
+const body = document.body;
+const toggles = document.querySelectorAll(".dark-toggle");
+
+if (localStorage.getItem("darkMode") === "enabled") enableDarkMode();
+
+toggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+        body.classList.contains("dark-mode") ? disableDarkMode() : enableDarkMode();
+    });
+});
+
+function updateToggleIcons(isDark) {
+    toggles.forEach(btn => {
+        btn.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    });
+}
+
+function enableDarkMode() {
+    body.classList.add("dark-mode");
+    document.querySelectorAll(".navbar, .card, .product-card, .cat-icon").forEach(el => el.classList.add("dark-mode"));
+    localStorage.setItem("darkMode", "enabled");
+    updateToggleIcons(true);
+}
+
+function disableDarkMode() {
+    body.classList.remove("dark-mode");
+    document.querySelectorAll(".navbar, .card, .product-card, .cat-icon").forEach(el => el.classList.remove("dark-mode"));
+    localStorage.setItem("darkMode", "disabled");
+    updateToggleIcons(false);
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

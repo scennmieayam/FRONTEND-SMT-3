@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Booking - HOTEL CITYKOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body {
+    padding-top: 72px;
+    background-color: #fafafa;
+}
+
+body.dark-mode {
+    background-color: #121212;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #cccccc;
+}
+
+.navbar-brand {
+    color: #0073e6 !important;
+    font-weight: 700;
+}
+
+.navbar-links a {
+    color: #333 !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    padding-bottom: 4px;
+    opacity: 1;
+}
+
+.navbar-links a:hover {
+    color: #0073e6 !important;
+}
+
+.navbar-links a.active {
+    color: #0073e6 !important;
+    border-bottom: 2px solid #0073e6;
+}
+
+.dark-toggle {
+    width: 40px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.app-footer {
+    margin-top: 60px;
+    padding: 24px 0;
+    background: #ffffff;
+    color: #666;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #e0e0e0;
+    font-weight: 500;
+}
+
+body.dark-mode .app-footer {
+    background: #1e1e1e;
+    color: #ccc;
+}
+
+body.dark-mode .navbar {
+    background-color: rgba(0, 0, 0, 0.65) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 13px;
+    z-index: 999;
+}
+
+.bottom-nav a {
+    color: #777;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.bottom-nav a span {
+    margin-top: -2px;
+    line-height: 1.1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.bottom-nav a.active {
+    color: #0073e6;
+}
+
+.bottom-nav a div {
+    font-size: 20px;
+}
+
+.bottom-nav a div i {
+    font-size: 18px;
+}
+
+body.dark-mode .bottom-nav {
+    background-color: #1e1e1e;
+    border-color: #333;
+}
+</style>
+</head>
+<body>
+
+<nav class="navbar p-2">
+    <div class="container d-flex align-items-center justify-content-between gap-2">
+        <a href="/" class="navbar-brand fw-bold fs-5 mb-0 text-decoration-none">HOTEL CITYKOM</a>
+
+        <div class="navbar-links d-none d-md-flex align-items-center gap-3">
+            <a href="/">Home</a>
+            <a href="/cart" class="active">Booking</a>
+            <a href="/profile">Profile</a>
+        </div>
+
+        <div class="d-none d-md-flex align-items-center gap-2">
+            <button class="btn btn-outline-dark btn-sm dark-toggle"><i class="fa-solid fa-sun"></i></button>
+        </div>
+
+        <button class="btn btn-outline-dark btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+            <i class="fa-solid fa-burger"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column gap-3">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <a href="/cart" class="text-white text-decoration-none">Booking</a>
+        <a href="/profile" class="text-white text-decoration-none">Profile</a>
+        <button class="btn btn-outline-light w-100 dark-toggle"><i class="fa-solid fa-sun"></i></button>
+    </div>
+</div>
+
+<div class="container mt-3 mb-5">
+    <h5 class="fw-bold mb-3">Booking Kamar</h5>
+    {% if cart_items %}
+    <div class="list-group">
+        {% for item in cart_items %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <span class="small fw-semibold d-block">Kamar {{ item.nomor_kamar }}</span>
+                <span class="text-muted small">{{ item.tipe_kamar }}</span>
+            </div>
+            <span class="text-primary fw-bold small">{{ item.harga_per_malam|rupiah }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+        <span class="fw-semibold small text-muted">Total per night</span>
+        <span class="fw-bold text-primary small">{{ total|rupiah }}</span>
+    </div>
+    <form action="/checkout" method="post" class="mt-3">
+        <button type="submit" class="btn btn-success w-100 py-2">Lanjut ke Checkout / Pembayaran</button>
+    </form>
+    {% else %}
+    <div class="alert alert-light text-center small">
+        Belum ada kamar yang dibooking.
+    </div>
+    {% endif %}
+</div>
+
+<div class="bottom-nav d-md-none">
+    <a href="/">
+        <div><i class="fa-solid fa-house"></i></div>
+        <span>Home</span>
+    </a>
+    <a href="/cart" class="active">
+        <div><i class="fa-solid fa-cart-shopping"></i></div>
+        <span>Booking</span>
+    </a>
+    <a href="/profile">
+        <div><i class="fa-solid fa-user"></i></div>
+        <span>Profile</span>
+    </a>
+</div>
+
+<footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-12 col-md-4">
+        <h5 class="fw-bold text-primary mb-2">HOTEL CITYKOM</h5>
+        <p class="mb-0 text-muted">
+          Hotel modern dengan suasana nyaman dan pelayanan ramah, cocok untuk perjalanan bisnis maupun liburan keluarga.
+        </p>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Quick Links</h6>
+        <ul class="list-unstyled mb-0">
+          <li class="mb-1">
+            <a href="/" class="text-decoration-none text-muted">Home</a>
+          </li>
+          <li class="mb-1">
+            <a href="/rooms" class="text-decoration-none text-muted">Rooms</a>
+          </li>
+          <li class="mb-1">
+            <a href="/cart" class="text-decoration-none text-muted">Booking</a>
+          </li>
+          <li class="mb-1">
+            <a href="/contact" class="text-decoration-none text-muted">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <h6 class="fw-semibold mb-3">Contact & Operational</h6>
+        <p class="mb-1 text-muted">
+          Email: <a href="mailto:reservasi@hotelcitykom.com" class="text-decoration-none text-muted">reservasi@hotelcitykom.com</a>
+        </p>
+        <p class="mb-1 text-muted">
+          WhatsApp: <a href="https://wa.me/6281234567890" class="text-decoration-none text-muted">+62 812 3456 7890</a>
+        </p>
+        <p class="mb-2 text-muted">
+          Operasional: 24 jam, setiap hari
+        </p>
+        <p class="small mb-0 text-muted">
+          Booking dilakukan tanpa akun, konfirmasi melalui kontak pemesan.
+        </p>
+      </div>
+    </div>
+
+    <hr class="my-3">
+
+    <div class="row">
+      <div class="col-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <span class="small text-muted mb-1 mb-md-0">
+          © 2025 — Project UAS Frontend Backend
+        </span>
+        <span class="small text-muted">
+          Designed for simple guest booking experience
+        </span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+const body = document.body;
+const toggles = document.querySelectorAll(".dark-toggle");
+
+if (localStorage.getItem("darkMode") === "enabled") enableDarkMode();
+
+toggles.forEach(btn => {
+    btn.addEventListener("click", () => {
+    body.classList.contains("dark-mode") ? disableDarkMode() : enableDarkMode();
+});
+});
+
+function updateToggleIcons(isDark) {
+    toggles.forEach(btn => {
+        btn.innerHTML = isDark ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+    });
+}
+
+function enableDarkMode() {
+    body.classList.add("dark-mode");
+    localStorage.setItem("darkMode", "enabled");
+    updateToggleIcons(true);
+}
+
+function disableDarkMode() {
+    body.classList.remove("dark-mode");
+    localStorage.setItem("darkMode", "disabled");
+    updateToggleIcons(false);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+

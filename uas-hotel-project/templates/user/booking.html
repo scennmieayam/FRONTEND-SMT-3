@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Booking Kamar - HOTEL CITYKOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+<style>
+body { padding-top: 72px; }
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1200; box-shadow: 0 4px 12px var(--shadow-lg); }
+.navbar-links a { text-decoration: none; font-weight: 600; font-size: 13px; margin-left: 12px; padding-bottom: 4px; }
+.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; display: flex; justify-content: space-around; align-items: center; z-index: 999; box-shadow: 0 -2px 10px var(--shadow-sm); }
+.bottom-nav a { text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 8px 0; transition: color 0.3s ease; }
+.bottom-nav a i { font-size: 22px; margin-bottom: 4px; }
+.bottom-nav a span { font-size: 12px; font-weight: 600; line-height: 1.2; }
+@media (min-width: 768px) { body { padding-bottom: 0 !important; } }
+@media (max-width: 767px) { body { padding-bottom: 70px !important; } }
+</style>
+</head>
+<body>
+<nav class="navbar p-2">
+  <div class="container d-flex align-items-center justify-content-between gap-2">
+    <span class="navbar-brand fw-bold fs-5 mb-0">HOTEL CITYKOM</span>
+    <div class="navbar-links d-none d-md-flex align-items-center">
+      <a href="{{ url_for('user_index') }}">Beranda</a>
+      <a href="{{ url_for('user_rooms') }}">Kamar</a>
+      <a href="{{ url_for('contact') }}">Kontak</a>
+    </div>
+    <button class="btn btn-outline-dark btn-sm d-none d-md-inline" id="darkToggleDesktop"><i class="fa-solid fa-sun"></i></button>
+    <button class="btn btn-outline-dark btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+      <i class="fa-solid fa-burger"></i>
+    </button>
+  </div>
+</nav>
+<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column gap-3">
+    <a href="{{ url_for('user_index') }}" class="text-white text-decoration-none">Beranda</a>
+    <a href="{{ url_for('user_rooms') }}" class="text-white text-decoration-none">Kamar</a>
+    <a href="{{ url_for('contact') }}" class="text-white text-decoration-none">Kontak</a>
+    <button class="btn btn-outline-light w-100" id="darkToggleMobile"><i class="fa-solid fa-sun"></i></button>
+  </div>
+</div>
+<div class="container mt-4 mb-5">
+  <div class="row g-4">
+    <div class="col-12 col-md-5">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          Detail Kamar
+        </div>
+        <div class="card-body">
+          {% if kamar %}
+          <h5 class="card-title mb-1">Kamar {{ kamar['nomor_kamar'] }}</h5>
+          <p class="mb-1 text-muted">{{ kamar['tipe_kamar'] }}</p>
+          <p class="mb-2 fw-bold text-primary">{{ kamar['harga_per_malam']|rupiah }} <small class="text-muted">/ malam</small></p>
+          {% if kamar['filename'] %}
+          <img src="{{ url_for('static', filename='images/kamar/' ~ kamar['filename']) }}" alt="Kamar {{ kamar['tipe_kamar'] }}" class="img-fluid rounded mb-3">
+          {% endif %}
+          <p class="small text-muted mb-0">{{ kamar['deskripsi'] }}</p>
+          {% else %}
+          <p class="mb-0">Data kamar tidak ditemukan.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          Form Booking
+        </div>
+        <div class="card-body">
+          <form method="post" id="bookingForm">
+            <div class="mb-3">
+              <label class="form-label">Nama Lengkap</label>
+              <input type="text" name="nama" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" name="email" class="form-control">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">No. Telepon</label>
+              <input type="text" name="telepon" class="form-control">
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Tanggal Check-in</label>
+                <input type="date" name="tanggal_checkin" class="form-control">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Tanggal Check-out</label>
+                <input type="date" name="tanggal_checkout" class="form-control">
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Catatan</label>
+              <textarea name="catatan" class="form-control" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Konfirmasi Booking</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="paymentModalLabel">
+          <i class="fa-solid fa-credit-card me-2"></i>Lanjutkan Pembayaran
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+          <i class="fa-solid fa-info-circle me-2"></i>
+          <strong>Booking berhasil dibuat!</strong> Silakan lanjutkan ke halaman pembayaran untuk menyelesaikan transaksi.
+        </div>
+        <p class="mb-0">Setelah pembayaran selesai, Anda akan mendapatkan struk sebagai bukti untuk resepsionis.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-success" id="goToPayment">
+          <i class="fa-solid fa-arrow-right me-2"></i>Lanjutkan Pembayaran
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-12 col-md-6">
+        <h5 class="fw-bold text-primary mb-2">HOTEL CITYKOM</h5>
+        <p class="mb-0 text-muted">
+          HOTEL CITYKOM berkomitmen memberikan pengalaman menginap yang praktis, bersih, dan mudah diakses bagi setiap tamu, baik untuk perjalanan bisnis maupun liburan pribadi.
+        </p>
+      </div>
+      <div class="col-12 col-md-6">
+        <h6 class="fw-semibold mb-3">Kontak & Operasional</h6>
+        <p class="mb-1 text-muted">Alamat: Jl. Jenderal Ahmad Yani No.80, Taman Baru, Kec. Banyuwangi, Kabupaten Banyuwangi, Jawa Timur 68416</p>
+        <p class="mb-1 text-muted">Email: <a href="mailto:reservasi@hotelcitykom.com" class="text-decoration-none text-muted">reservasi@hotelcitykom.com</a></p>
+        <p class="mb-1 text-muted">WhatsApp: <a href="https://wa.me/6281234567890" class="text-decoration-none text-muted">+62 812 3456 7890</a></p>
+        <p class="mb-2 text-muted">Operasional: 24 jam, setiap hari</p>
+        <p class="small mb-0 text-muted">Booking dilakukan tanpa akun, konfirmasi melalui kontak pemesan.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+(function() {
+  const body = document.body;
+  const desktopBtn = document.getElementById('darkToggleDesktop');
+  const mobileBtn = document.getElementById('darkToggleMobile');
+  function setIcons(isDark) {
+    const cls = isDark ? 'fa-moon' : 'fa-sun';
+    [desktopBtn, mobileBtn].forEach(function(btn) {
+      if (!btn) return;
+      const i = btn.querySelector('i');
+      if (!i) return;
+      i.classList.remove('fa-moon', 'fa-sun');
+      i.classList.add(cls);
+    });
+  }
+  function enableDark() {
+    body.classList.add('dark-mode');
+    localStorage.setItem('darkMode', 'enabled');
+    setIcons(true);
+  }
+  function disableDark() {
+    body.classList.remove('dark-mode');
+    localStorage.setItem('darkMode', 'disabled');
+    setIcons(false);
+  }
+  if (localStorage.getItem('darkMode') === 'enabled') enableDark(); else disableDark();
+  [desktopBtn, mobileBtn].forEach(function(btn) {
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      if (body.classList.contains('dark-mode')) disableDark(); else enableDark();
+    });
+  });
+})();
+
+</script>
+{% if show_payment_modal and id_booking %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+  paymentModal.show();
+
+  var btn = document.getElementById('goToPayment');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      window.location.href = "{{ url_for('payment', id_booking=id_booking) }}";
+    });
+  }
+});
+</script>
+{% endif %}
+<div class="bottom-nav d-md-none">
+  <a href="{{ url_for('user_index') }}" class="{% if request.endpoint == 'user_index' %}active{% endif %}">
+    <i class="fa-solid fa-house"></i>
+    <span>Beranda</span>
+  </a>
+  <a href="{{ url_for('user_rooms') }}" class="{% if request.endpoint in ['user_rooms','kamar_detail'] %}active{% endif %}">
+    <i class="fa-solid fa-bed"></i>
+    <span>Kamar</span>
+  </a>
+  <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">
+    <i class="fa-solid fa-envelope"></i>
+    <span>Kontak</span>
+  </a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

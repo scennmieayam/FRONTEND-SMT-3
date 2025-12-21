@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Admin - Banner HOTEL CITYKOM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('admin_rooms') }}">Admin HOTEL CITYKOM</a>
+    <div class="d-flex ms-auto">
+      <a class="btn btn-outline-light btn-sm me-2" href="{{ url_for('admin_rooms') }}">Kamar</a>
+      <a class="btn btn-light btn-sm me-2" href="{{ url_for('admin_banners') }}">Banner</a>
+      <a class="btn btn-outline-light btn-sm me-2" href="{{ url_for('admin_tipe_kamar') }}">Detail Tipe</a>
+      <a class="btn btn-outline-light btn-sm me-2" href="{{ url_for('admin_contacts') }}">Kontak</a>
+      <a class="btn btn-outline-light btn-sm me-2" href="{{ url_for('admin_bookings') }}">Booking</a>
+      <a class="btn btn-outline-danger btn-sm" href="{{ url_for('admin_logout') }}">Logout</a>
+    </div>
+  </div>
+</nav>
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-lg-4 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          {% if edit_banner %}
+          Edit Banner #{{ edit_banner['id_banner'] }}
+          {% else %}
+          Tambah Banner
+          {% endif %}
+        </div>
+        <div class="card-body">
+          <form method="post" enctype="multipart/form-data" action="{% if edit_banner %}{{ url_for('admin_edit_banner', id_banner=edit_banner['id_banner']) }}{% else %}{{ url_for('admin_add_banner') }}{% endif %}">
+            <div class="mb-3">
+              <label class="form-label">Judul</label>
+              <input type="text" name="judul" class="form-control" value="{% if edit_banner %}{{ edit_banner['judul'] }}{% endif %}" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Subjudul</label>
+              <input type="text" name="subjudul" class="form-control" value="{% if edit_banner %}{{ edit_banner['subjudul'] }}{% endif %}">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Gambar Banner</label>
+              <input type="file" name="file" class="form-control" {% if not edit_banner %}required{% endif %}>
+              {% if edit_banner and edit_banner['filename'] %}
+              <div class="mt-2">
+                <img src="{{ url_for('static', filename='img/' ~ edit_banner['filename']) }}" alt="Banner" class="img-thumbnail" style="max-width: 120px;">
+              </div>
+              {% endif %}
+            </div>
+            <div class="d-flex justify-content-between">
+              {% if edit_banner %}
+              <a href="{{ url_for('admin_banners') }}" class="btn btn-secondary"><i class="fa-solid fa-times me-1"></i>Batal</a>
+              <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-1"></i>Update</button>
+              {% else %}
+              <button type="submit" class="btn btn-success w-100"><i class="fa-solid fa-save me-1"></i>Simpan</button>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0"><i class="fa-solid fa-images me-2"></i>Daftar Banner</h5>
+            <form method="get" class="d-flex gap-2 align-items-center" style="max-width: 300px;">
+              <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari banner..." value="{{ search }}" style="flex: 1;">
+              {% if search %}
+              <a href="{{ url_for('admin_banners') }}" class="btn btn-outline-light btn-sm" style="flex-shrink: 0;"><i class="fa-solid fa-times"></i></a>
+              {% endif %}
+            </form>
+          </div>
+        </div>
+        <div class="card-body table-responsive">
+          {% if total|default(0) > 0 %}
+          <div class="mb-2 text-muted small">Menampilkan {{ ((page|default(1) - 1) * 10) + 1 }} - {{ [page|default(1) * 10, total|default(0)]|min }} dari {{ total|default(0) }} data</div>
+          {% endif %}
+          <table class="table table-striped align-middle mb-0">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Preview</th>
+                <th>Judul</th>
+                <th>Subjudul</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for b in banners %}
+              <tr>
+                <td>{{ b['id_banner'] }}</td>
+                <td>
+                  <img src="{{ url_for('static', filename='img/' ~ b['filename']) }}" alt="Banner" class="img-thumbnail" style="max-width: 120px;">
+                </td>
+                <td>{{ b['judul'] }}</td>
+                <td>{{ b['subjudul'] }}</td>
+                <td>
+                  <a href="{{ url_for('admin_edit_banner', id_banner=b['id_banner']) }}" class="btn btn-sm btn-primary me-1"><i class="fa-solid fa-pen me-1"></i>Edit</a>
+                  <a href="{{ url_for('admin_delete_banner', id_banner=b['id_banner']) }}" class="btn btn-sm btn-danger" onclick="return confirm('Hapus banner ini?')"><i class="fa-solid fa-trash me-1"></i>Hapus</a>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="5" class="text-center">Belum ada banner.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% if total_pages|default(1) > 1 %}
+          <nav aria-label="Page navigation" class="mt-3">
+            <ul class="pagination justify-content-center mb-0">
+              {% if page|default(1) > 1 %}
+              <li class="page-item">
+                <a class="page-link" href="{{ url_for('admin_banners', page=page|default(1)-1, search=search|default('')) }}">Sebelumnya</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">Sebelumnya</span>
+              </li>
+              {% endif %}
+              {% for p in range(1, total_pages|default(1) + 1) %}
+              {% if p == page|default(1) %}
+              <li class="page-item active">
+                <span class="page-link">{{ p }}</span>
+              </li>
+              {% elif p <= 3 or p > total_pages|default(1) - 3 or (p >= page|default(1) - 1 and p <= page|default(1) + 1) %}
+              <li class="page-item">
+                <a class="page-link" href="{{ url_for('admin_banners', page=p, search=search|default('')) }}">{{ p }}</a>
+              </li>
+              {% elif p == 4 or p == total_pages|default(1) - 3 %}
+              <li class="page-item disabled">
+                <span class="page-link">...</span>
+              </li>
+              {% endif %}
+              {% endfor %}
+              {% if page|default(1) < total_pages|default(1) %}
+              <li class="page-item">
+                <a class="page-link" href="{{ url_for('admin_banners', page=page|default(1)+1, search=search|default('')) }}">Selanjutnya</a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <span class="page-link">Selanjutnya</span>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
