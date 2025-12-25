@@ -233,6 +233,9 @@ body { padding-top: 72px; }
             <a href="{{ url_for('kamar_detail', tipe=kamar['tipe_kamar']) }}" class="product-card-title text-decoration-none">Kamar {{ kamar['tipe_kamar'] }}</a>
             <span class="badge bg-success" style="font-size:10px; padding:4px 8px;">{{ kamar['status'] }}</span>
           </div>
+          {% if kamar['deskripsi_tipe'] %}
+          <p class="small text-muted mb-2" style="font-size:12px; line-height:1.4;">{{ kamar['deskripsi_tipe'] }}</p>
+          {% endif %}
           <div class="product-card-price">{{ kamar['harga_per_malam']|rupiah }} <small class="text-muted">/ malam</small></div>
           <a href="{{ url_for('kamar_detail', tipe=kamar['tipe_kamar']) }}" class="btn btn-primary w-100">Lihat Detail</a>
         </div>

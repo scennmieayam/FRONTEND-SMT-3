@@ -160,9 +160,10 @@ def user_index():
                   AND (nomor_kamar LIKE ? OR tipe_kamar LIKE ?)
                 GROUP BY tipe_kamar
             )
-            SELECT k.*
+            SELECT k.*, t.deskripsi as deskripsi_tipe
             FROM kamar k
             JOIN first_per_type f ON k.id_kamar = f.min_id
+            LEFT JOIN tipe_kamar_detail t ON k.tipe_kamar = t.tipe_kamar
             ORDER BY CASE k.tipe_kamar
                 WHEN 'Standard' THEN 1
                 WHEN 'Deluxe' THEN 2
@@ -182,9 +183,10 @@ def user_index():
                 WHERE status = 'Tersedia'
                 GROUP BY tipe_kamar
             )
-            SELECT k.*
+            SELECT k.*, t.deskripsi as deskripsi_tipe
             FROM kamar k
             JOIN first_per_type f ON k.id_kamar = f.min_id
+            LEFT JOIN tipe_kamar_detail t ON k.tipe_kamar = t.tipe_kamar
             ORDER BY CASE k.tipe_kamar
                 WHEN 'Standard' THEN 1
                 WHEN 'Deluxe' THEN 2
