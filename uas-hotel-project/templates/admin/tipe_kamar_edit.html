@@ -27,7 +27,7 @@
         <div class="col-lg-8 mx-auto">
             <div class="card shadow-sm">
                 <div class="card-header bg-primary text-white">
-                    <i class="fa-solid fa-edit me-2"></i>Edit Detail Tipe Kamar: {{ tipe }}
+                    Edit Detail Tipe Kamar: {{ tipe }}
                 </div>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
@@ -63,8 +63,8 @@
                             {% endif %}
                         </div>
                         <div class="d-flex justify-content-between">
-                            <a href="{{ url_for('admin_tipe_kamar') }}" class="btn btn-secondary"><i class="fa-solid fa-times me-1"></i>Batal</a>
-                            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save me-1"></i>Simpan</button>
+                            <a href="{{ url_for('admin_tipe_kamar') }}" class="btn btn-secondary">Batal</a>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 </div>

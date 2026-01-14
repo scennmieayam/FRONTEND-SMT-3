@@ -26,11 +26,11 @@
     <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
             <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"><i class="fa-solid fa-envelope me-2"></i>Pesan Kontak Tamu</h5>
+                <h5 class="mb-0">Pesan Kontak Tamu</h5>
                 <form method="get" class="d-flex gap-2 align-items-center" style="max-width: 300px;">
                     <input type="text" name="search" class="form-control form-control-sm" placeholder="Cari pesan..." value="{{ search }}" style="flex: 1;">
                     {% if search %}
-                    <a href="{{ url_for('admin_contacts') }}" class="btn btn-outline-light btn-sm" style="flex-shrink: 0;"><i class="fa-solid fa-times"></i></a>
+                    <a href="{{ url_for('admin_contacts') }}" class="btn btn-outline-light btn-sm" style="flex-shrink: 0;">×</a>
                     {% endif %}
                 </form>
             </div>

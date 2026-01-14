@@ -8,27 +8,119 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
 <style>
 @media print {
-  body { padding-top: 0 !important; }
-  .no-print { display: none !important; }
-  .struk-container { border: none !important; box-shadow: none !important; }
+  body {
+    padding-top: 0 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .struk-container {
+    border: none !important;
+    box-shadow: none !important;
+  }
 }
-body { padding-top: 72px; }
-.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1200; box-shadow: 0 4px 12px var(--shadow-lg); }
-.navbar-links a { text-decoration: none; font-weight: 600; font-size: 13px; margin-left: 12px; }
-.bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; display: flex; justify-content: space-around; align-items: center; z-index: 999; box-shadow: 0 -2px 10px var(--shadow-sm); }
-.bottom-nav a { text-decoration: none; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; padding: 8px 0; transition: color 0.3s ease; }
-.bottom-nav a i { font-size: 22px; margin-bottom: 4px; }
-.bottom-nav a span { font-size: 12px; font-weight: 600; line-height: 1.2; }
-@media (min-width: 768px) { body { padding-bottom: 0 !important; } }
-@media (max-width: 767px) { body { padding-bottom: 70px !important; } }
-@media print { .bottom-nav { display: none !important; } body { padding-bottom: 0 !important; } }
-.struk-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border: 2px solid #0073e6; }
-.struk-header { text-align: center; border-bottom: 2px solid #0073e6; padding-bottom: 20px; margin-bottom: 20px; }
-.struk-header h2 { color: #0073e6; margin-bottom: 5px; }
-.struk-item { padding: 8px 0; border-bottom: 1px dashed #ddd; }
-.struk-item:last-child { border-bottom: none; }
-.struk-total { border-top: 2px solid #0073e6; padding-top: 15px; margin-top: 15px; }
-.badge-success { background-color: #28a745; color: white; padding: 5px 15px; border-radius: 5px; }
+body {
+  padding-top: 72px;
+}
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1200;
+  box-shadow: 0 4px 12px var(--shadow-lg);
+}
+.navbar-links a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 13px;
+  margin-left: 12px;
+}
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 999;
+  box-shadow: 0 -2px 10px var(--shadow-sm);
+}
+.bottom-nav a {
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+.bottom-nav a i {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+.bottom-nav a span {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0 !important;
+  }
+}
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 70px !important;
+  }
+}
+@media print {
+  .bottom-nav {
+    display: none !important;
+  }
+  body {
+    padding-bottom: 0 !important;
+  }
+}
+.struk-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border: 2px solid #0073e6;
+}
+.struk-header {
+  text-align: center;
+  border-bottom: 2px solid #0073e6;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+.struk-header h2 {
+  color: #0073e6;
+  margin-bottom: 5px;
+}
+.struk-item {
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+}
+.struk-item:last-child {
+  border-bottom: none;
+}
+.struk-total {
+  border-top: 2px solid #0073e6;
+  padding-top: 15px;
+  margin-top: 15px;
+}
+.badge-success {
+  background-color: #28a745;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
 </style>
 </head>
 <body>
