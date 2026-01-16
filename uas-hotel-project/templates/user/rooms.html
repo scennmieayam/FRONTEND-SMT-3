@@ -1,216 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Daftar Kamar - HOTEL CITYKOM</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
-<style>
-body {
-  padding-top: 72px;
-}
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1200;
-  box-shadow: 0 4px 12px var(--shadow-lg);
-}
-.navbar-links a {
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 13px;
-  margin-left: 12px;
-  padding-bottom: 4px;
-}
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 999;
-  box-shadow: 0 -2px 10px var(--shadow-sm);
-}
-.bottom-nav a {
-  text-decoration: none;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  padding: 8px 0;
-  transition: color 0.3s ease;
-}
-.bottom-nav a i {
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-.bottom-nav a span {
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-@media (min-width: 768px) {
-  body {
-    padding-bottom: 0 !important;
-  }
-}
-@media (max-width: 767px) {
-  body {
-    padding-bottom: 70px !important;
-  }
-}
-.product-card {
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  transition: transform 0.2s ease;
-}
-.product-card:hover {
-  transform: translateY(-4px);
-}
-.product-card img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-}
-.product-card-content {
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-.product-card-title {
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.product-card-price {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--accent-color);
-  margin-bottom: 10px;
-}
-.badge-status {
-  font-size: 11px;
-  padding: 4px 8px;
-}
-</style>
+  <title>Daftar Kamar - HOTEL CITYKOM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}">
+  <style>
+    body {
+      padding-top: 72px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1200;
+      box-shadow: 0 4px 12px var(--shadow-lg);
+    }
+
+    .navbar-links a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      margin-left: 12px;
+      padding-bottom: 4px;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 999;
+      box-shadow: 0 -2px 10px var(--shadow-sm);
+    }
+
+    .bottom-nav a {
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 8px 0;
+      transition: color 0.3s ease;
+    }
+
+    .bottom-nav a i {
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .bottom-nav a span {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding-bottom: 0 !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      body {
+        padding-bottom: 70px !important;
+      }
+    }
+
+    .product-card {
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      transition: transform 0.2s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+    }
+
+    .product-card-content {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .product-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .product-card-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 10px;
+    }
+
+    .badge-status {
+      font-size: 11px;
+      padding: 4px 8px;
+    }
+  </style>
 </head>
+
 <body>
-<nav class="navbar p-2">
-  <div class="container d-flex align-items-center justify-content-between gap-2">
-    <span class="navbar-brand fw-bold fs-5 mb-0">HOTEL CITYKOM</span>
-    <div class="navbar-links d-none d-md-flex align-items-center">
-      <a href="{{ url_for('user_index') }}" class="{% if request.endpoint == 'user_index' %}active{% endif %}">Beranda</a>
-      <a href="{{ url_for('user_rooms') }}" class="{% if request.endpoint in ['user_rooms','kamar_detail'] %}active{% endif %}">Kamar</a>
-      <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">Kontak</a>
+  <nav class="navbar p-2">
+    <div class="container d-flex align-items-center justify-content-between gap-2">
+      <span class="navbar-brand fw-bold fs-5 mb-0">HOTEL CITYKOM</span>
+      <div class="navbar-links d-none d-md-flex align-items-center">
+        <a href="{{ url_for('user_index') }}"
+          class="{% if request.endpoint == 'user_index' %}active{% endif %}">Beranda</a>
+        <a href="{{ url_for('user_rooms') }}"
+          class="{% if request.endpoint in ['user_rooms','kamar_detail'] %}active{% endif %}">Kamar</a>
+        <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">Kontak</a>
+      </div>
+      <button class="btn btn-outline-dark btn-sm d-none d-md-inline" id="darkToggleDesktop"><i
+          class="fa-solid fa-sun"></i></button>
+      <button class="btn btn-outline-dark btn-sm d-md-none" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+        <i class="fa-solid fa-burger"></i>
+      </button>
     </div>
-    <button class="btn btn-outline-dark btn-sm d-none d-md-inline" id="darkToggleDesktop"><i class="fa-solid fa-sun"></i></button>
-    <button class="btn btn-outline-dark btn-sm d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
-      <i class="fa-solid fa-burger"></i>
-    </button>
-  </div>
-</nav>
-<div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body d-flex flex-column gap-3">
-    <a href="{{ url_for('user_index') }}" class="text-decoration-none {% if request.endpoint == 'user_index' %}text-primary{% else %}text-white{% endif %}">Beranda</a>
-    <a href="{{ url_for('user_rooms') }}" class="text-decoration-none {% if request.endpoint in ['user_rooms','kamar_detail'] %}text-primary{% else %}text-white{% endif %}">Kamar</a>
-    <a href="{{ url_for('contact') }}" class="text-decoration-none {% if request.endpoint == 'contact' %}text-primary{% else %}text-white{% endif %}">Kontak</a>
-    <button class="btn btn-outline-light w-100" id="darkToggleMobile"><i class="fa-solid fa-sun"></i></button>
-  </div>
-</div>
-<div class="container mt-4 mb-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <div>
-      <h4 class="fw-bold mb-1">Daftar Kamar</h4>
-      {% if kategori %}
-      <small class="text-muted">Filter: {{ kategori }}</small>
-      {% else %}
-      <small class="text-muted">Semua kamar tersedia</small>
-      {% endif %}
+  </nav>
+  <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <span class="badge bg-primary">{{ kamars|length }} kamar</span>
+    <div class="offcanvas-body d-flex flex-column gap-3">
+      <a href="{{ url_for('user_index') }}"
+        class="text-decoration-none {% if request.endpoint == 'user_index' %}text-primary{% else %}text-white{% endif %}">Beranda</a>
+      <a href="{{ url_for('user_rooms') }}"
+        class="text-decoration-none {% if request.endpoint in ['user_rooms','kamar_detail'] %}text-primary{% else %}text-white{% endif %}">Kamar</a>
+      <a href="{{ url_for('contact') }}"
+        class="text-decoration-none {% if request.endpoint == 'contact' %}text-primary{% else %}text-white{% endif %}">Kontak</a>
+      <button class="btn btn-outline-light w-100" id="darkToggleMobile"><i class="fa-solid fa-sun"></i></button>
+    </div>
   </div>
-  <div class="row g-4">
-    {% for kamar in kamars %}
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="product-card">
-        {% if kamar['filename'] %}
-        <img src="{{ url_for('static', filename='images/kamar/' ~ kamar['filename']) }}" alt="Kamar {{ kamar['tipe_kamar'] }}">
+  <div class="container mt-4 mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h4 class="fw-bold mb-1">Daftar Kamar</h4>
+        {% if kategori %}
+        <small class="text-muted">Filter: {{ kategori }}</small>
         {% else %}
-        <img src="{{ url_for('static', filename='images/hotel/default.jpg') }}" alt="Kamar {{ kamar['tipe_kamar'] }}">
+        <small class="text-muted">Semua kamar tersedia</small>
         {% endif %}
-        <div class="product-card-content">
-          <div class="d-flex justify-content-between align-items-start mb-2">
-            <div>
-              <a href="{{ url_for('kamar_detail', tipe=kamar['tipe_kamar']) }}" class="product-card-title text-decoration-none">Kamar {{ kamar['nomor_kamar'] }}</a>
-              <small class="text-muted">{{ kamar['tipe_kamar'] }}</small>
+      </div>
+      <span class="badge bg-primary">{{ kamars|length }} kamar</span>
+    </div>
+    <div class="row g-4">
+      {% for kamar in kamars %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="product-card">
+          {% if kamar['filename'] %}
+          <img src="{{ url_for('static', filename='images/kamar/' ~ kamar['filename']) }}"
+            alt="Kamar {{ kamar['tipe_kamar'] }}">
+          {% else %}
+          <img src="{{ url_for('static', filename='images/hotel/default.jpg') }}" alt="Kamar {{ kamar['tipe_kamar'] }}">
+          {% endif %}
+          <div class="product-card-content">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <a href="{{ url_for('kamar_detail', tipe=kamar['tipe_kamar']) }}"
+                  class="product-card-title text-decoration-none">Kamar {{ kamar['nomor_kamar'] }}</a>
+                <small class="text-muted">{{ kamar['tipe_kamar'] }}</small>
+              </div>
+              <span
+                class="badge badge-status {% if kamar['status'] == 'Tersedia' %}bg-success{% else %}bg-secondary{% endif %}">{{
+                kamar['status'] }}</span>
             </div>
-            <span class="badge badge-status {% if kamar['status'] == 'Tersedia' %}bg-success{% else %}bg-secondary{% endif %}">{{ kamar['status'] }}</span>
+            <div class="product-card-price">{{ kamar['harga_per_malam']|rupiah }} <small class="text-muted">/
+                malam</small></div>
+            <p class="mb-2 small text-muted">{{ kamar['deskripsi'] }}</p>
+            <a href="{{ url_for('user_booking', id_kamar=kamar['id_kamar']) }}"
+              class="btn btn-primary btn-sm w-100">Booking Sekarang</a>
           </div>
-          <div class="product-card-price">{{ kamar['harga_per_malam']|rupiah }} <small class="text-muted">/ malam</small></div>
-          <p class="mb-2 small text-muted">{{ kamar['deskripsi'] }}</p>
-          <a href="{{ url_for('user_booking', id_kamar=kamar['id_kamar']) }}" class="btn btn-primary btn-sm w-100">Booking Sekarang</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="col-12">
+        <div class="alert alert-light text-center">Belum ada data kamar.</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  {% if total_pages > 1 %}
+  <nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination request-pagination justify-content-center">
+      <!-- Previous Page -->
+      <li class="page-item {% if page == 1 %}disabled{% endif %}">
+        <a class="page-link" href="{{ url_for('user_rooms', page=page-1, kategori=kategori) if page > 1 else '#' }}"
+          aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+
+      <!-- Page Numbers -->
+      {% for p in range(1, total_pages + 1) %}
+      <li class="page-item {% if p == page %}active{% endif %}">
+        <a class="page-link" href="{{ url_for('user_rooms', page=p, kategori=kategori) }}">{{ p }}</a>
+      </li>
+      {% endfor %}
+
+      <!-- Next Page -->
+      <li class="page-item {% if page == total_pages %}disabled{% endif %}">
+        <a class="page-link"
+          href="{{ url_for('user_rooms', page=page+1, kategori=kategori) if page < total_pages else '#' }}"
+          aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  {% endif %}
+
+  </div>
+  <footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-12 col-md-6">
+          <h5 class="fw-bold text-primary mb-2">HOTEL CITYKOM</h5>
+          <p class="mb-0 text-muted">
+            HOTEL CITYKOM berkomitmen memberikan pengalaman menginap yang praktis, bersih, dan mudah diakses bagi setiap
+            tamu, baik untuk perjalanan bisnis maupun liburan pribadi.
+          </p>
+        </div>
+        <div class="col-12 col-md-6">
+          <h6 class="fw-semibold mb-3">Kontak & Operasional</h6>
+          <p class="mb-1 text-muted">Alamat: Jl. Jenderal Ahmad Yani No.80, Taman Baru, Kec. Banyuwangi, Kabupaten
+            Banyuwangi, Jawa Timur 68416</p>
+          <p class="mb-1 text-muted">Email: <a href="mailto:reservasi@hotelcitykom.com"
+              class="text-decoration-none text-muted">reservasi@hotelcitykom.com</a></p>
+          <p class="mb-1 text-muted">WhatsApp: <a href="https://wa.me/6281234567890"
+              class="text-decoration-none text-muted">+62 812 3456 7890</a></p>
+          <p class="mb-2 text-muted">Operasional: 24 jam, setiap hari</p>
+          <p class="small mb-0 text-muted">Booking dilakukan tanpa akun, konfirmasi melalui kontak pemesan.</p>
         </div>
       </div>
     </div>
-    {% else %}
-    <div class="col-12">
-      <div class="alert alert-light text-center">Belum ada data kamar.</div>
-    </div>
-    {% endfor %}
+  </footer>
+  <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+  <div class="bottom-nav d-md-none">
+    <a href="{{ url_for('user_index') }}" class="{% if request.endpoint == 'user_index' %}active{% endif %}">
+      <i class="fa-solid fa-house"></i>
+      <span>Beranda</span>
+    </a>
+    <a href="{{ url_for('user_rooms') }}"
+      class="{% if request.endpoint in ['user_rooms','kamar_detail'] %}active{% endif %}">
+      <i class="fa-solid fa-bed"></i>
+      <span>Kamar</span>
+    </a>
+    <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">
+      <i class="fa-solid fa-envelope"></i>
+      <span>Kontak</span>
+    </a>
   </div>
- </div>
-</div>
-<footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top">
-  <div class="container">
-    <div class="row gy-4">
-      <div class="col-12 col-md-6">
-        <h5 class="fw-bold text-primary mb-2">HOTEL CITYKOM</h5>
-        <p class="mb-0 text-muted">
-          HOTEL CITYKOM berkomitmen memberikan pengalaman menginap yang praktis, bersih, dan mudah diakses bagi setiap tamu, baik untuk perjalanan bisnis maupun liburan pribadi.
-        </p>
-      </div>
-      <div class="col-12 col-md-6">
-        <h6 class="fw-semibold mb-3">Kontak & Operasional</h6>
-        <p class="mb-1 text-muted">Alamat: Jl. Jenderal Ahmad Yani No.80, Taman Baru, Kec. Banyuwangi, Kabupaten Banyuwangi, Jawa Timur 68416</p>
-        <p class="mb-1 text-muted">Email: <a href="mailto:reservasi@hotelcitykom.com" class="text-decoration-none text-muted">reservasi@hotelcitykom.com</a></p>
-        <p class="mb-1 text-muted">WhatsApp: <a href="https://wa.me/6281234567890" class="text-decoration-none text-muted">+62 812 3456 7890</a></p>
-        <p class="mb-2 text-muted">Operasional: 24 jam, setiap hari</p>
-        <p class="small mb-0 text-muted">Booking dilakukan tanpa akun, konfirmasi melalui kontak pemesan.</p>
-      </div>
-    </div>
-  </div>
-</footer>
-<script src="{{ url_for('static', filename='js/theme.js') }}"></script>
-<div class="bottom-nav d-md-none">
-  <a href="{{ url_for('user_index') }}" class="{% if request.endpoint == 'user_index' %}active{% endif %}">
-    <i class="fa-solid fa-house"></i>
-    <span>Beranda</span>
-  </a>
-  <a href="{{ url_for('user_rooms') }}" class="{% if request.endpoint in ['user_rooms','kamar_detail'] %}active{% endif %}">
-    <i class="fa-solid fa-bed"></i>
-    <span>Kamar</span>
-  </a>
-  <a href="{{ url_for('contact') }}" class="{% if request.endpoint == 'contact' %}active{% endif %}">
-    <i class="fa-solid fa-envelope"></i>
-    <span>Kontak</span>
-  </a>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -224,24 +224,46 @@ def contact():
     return render_template("user/contact.html", success=False)
 
 
+# pagination kamar hanya 6 card per page
 @app.route("/rooms")
 def user_rooms():
     kategori = request.args.get("kategori")
+    page = request.args.get("page", 1, type=int)
+    per_page = 6
+    offset = (page - 1) * per_page
+    
     conn = get_db()
     cur = conn.cursor()
+    
+    if kategori:
+        cur.execute("SELECT COUNT(*) FROM kamar WHERE status = ? AND tipe_kamar = ?", ("Tersedia", kategori))
+    else:
+        cur.execute("SELECT COUNT(*) FROM kamar WHERE status = ?", ("Tersedia",))
+    total_rooms = cur.fetchone()[0]
+    
     if kategori:
         cur.execute(
-            "SELECT * FROM kamar WHERE status = ? AND tipe_kamar = ? ORDER BY id_kamar ASC",
-            ("Tersedia", kategori),
+            "SELECT * FROM kamar WHERE status = ? AND tipe_kamar = ? ORDER BY id_kamar ASC LIMIT ? OFFSET ?",
+            ("Tersedia", kategori, per_page, offset),
         )
     else:
         cur.execute(
-            "SELECT * FROM kamar WHERE status = ? ORDER BY id_kamar ASC",
-            ("Tersedia",),
+            "SELECT * FROM kamar WHERE status = ? ORDER BY id_kamar ASC LIMIT ? OFFSET ?",
+            ("Tersedia", per_page, offset),
         )
+        
     kamars = cur.fetchall()
     conn.close()
-    return render_template("user/rooms.html", kamars=kamars, kategori=kategori)
+    
+    total_pages = (total_rooms + per_page - 1) // per_page
+    
+    return render_template(
+        "user/rooms.html", 
+        kamars=kamars, 
+        kategori=kategori, 
+        page=page, 
+        total_pages=total_pages
+    )
 
 
 @app.route("/kamar/<tipe>")
